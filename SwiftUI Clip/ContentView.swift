@@ -1,14 +1,14 @@
 //
 //  ContentView.swift
-//  SwiftUI Kit
+//  SwiftUI Clip
 //
-//  Created by Jordan Singer on 7/10/20.
+//  Created by chenyao on 2020/7/16.
 //
 
 import SwiftUI
 
 struct ContentView: View {
-
+    
     var list: some View {
         List {
             Grouping(title: "Buttons", icon: "capsule", content: { ButtonsGroup() })
@@ -18,17 +18,20 @@ struct ContentView: View {
             #if os(iOS)
             Grouping(title: "Haptics", icon: "hand.tap", content: { HapticsGroup() })
             #endif
+            #if !APPCLIP
             Grouping(title: "Images", icon: "photo", content: { ImagesGroup() })
             Grouping(title: "Indicators", icon: "speedometer", content: { IndicatorsGroup() })
             Grouping(title: "Shapes", icon: "square.on.circle", content: { ShapesGroup() })
             Grouping(title: "Text", icon: "text.aligncenter", content: { TextGroup() })
+            #endif
         }
     }
-
+    
     var body: some View {
         NavigationView {
             #if os(iOS) || os(watchOS) || os(tvOS)
-            list.navigationBarTitle(Text("SwiftUI"))
+            list.navigationBarTitle("SwiftUI Clip")
+//            Text("Select a group")
             #elseif os(OSX)
             list.listStyle(SidebarListStyle())
             Text("Select a group").frame(maxWidth: .infinity, maxHeight: .infinity)
